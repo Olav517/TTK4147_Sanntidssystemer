@@ -1,0 +1,12 @@
+"#! /bin/bash" tells the shell what interpreter to run. Can be python, perl, ruby, php etc etc
+
+chmod forandrer rettighetene til en fil. chmod +x script.sh gjør script.sh-fila kjørbar
+
+& på slutten av en command avbryter. Samme med CTRL+C under kjøring.
+
+CTRL+Z under kjøring gjør det samme, bare med detaljer
+
+fg bringer en bakgrunnsprosses til forgrunnen (?)
+
+For å compilere ett c-program (ex hello.c) med en fil; $ gcc -o hello hello.c
+Med flere filer (main.c, sort.h, sort.c) $ gcc -o sort_args sort.c main.c
