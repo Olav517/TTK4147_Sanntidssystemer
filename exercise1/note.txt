@@ -1,0 +1,4 @@
+$ time ./your_program	-	timer program fra ssh
+clock_gettime()		-	timer program innad i c program
+times()			-	return system time in hundreths of seconds
+__rdtsc()		-	#include <x86intrin.h>, leser av CPU timestamp. Ticks with 					CPU frequency.
