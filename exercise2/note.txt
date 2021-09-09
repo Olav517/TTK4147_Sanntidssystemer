@@ -1,0 +1,43 @@
+task a:
+Q: What happens when we try to allocate more memory than the computer has RAM?
+A: Memory used goes to 100% and everything freezes/crashes.
+
+Q: What is the difference between ”Memory” and ”Swap”?
+A: SWAP are a supplement to the RAM when it becomes full. It is "virtual memory" placed on the hard drive/ssd.
+Real RAM are always faster and SWAP should not be considered a replacement for more RAM.
+
+Q: Now change the shape of the matrix by increasing x dim first to 1000, then 10000, and run the
+program again. What happens?
+A: It made the process way faster. The total allocated memory is still the same(?), but in system monitor, one observes that less RAM is being used?
+
+Q:Run the program with x dim = 10000 again, but this time write zeros to all the memory:
+A. Pc becomes unresponsive again. Need to ctrl+c the program.
+
+Q: Explain why something different happens when the memory is also cleared.
+A: Th computers recovers after some time. Since there is 6.3 gB RAM available, using exactly that gives a far smoother experience which is observable in system monitor.
+One observes that the memory is freed up.
+
+Task b:
+Q: Create an array with some small capacity, then insertBack more elements
+than there is capacity for, and run the program. What happens?
+A: Writing outside allocated memory gives segmentation fault.
+
+Q: Compile and run the program again, but now add the compiler flags -g -fsanitize=address.
+What happens now?
+A: With makefile, compilerflags also needs to be added as linker flags. It gives a nice overlook for which address is redzoned ( not allocated?).
+Lets have the studass explain afterwards.
+
+Task c:
+memcpy - Copies content from allocated memory referenced to in src to destination.
+realloc - Does something similar :)
+
+Task D:
+Say growthfactor is 2.
+Crash when..
+Capacity_mem > Available_mem
+=
+Inital_mem * 2^n > Available_mem
+Crash after n calls for allocation increase
+n = log2(Available_mem/Inital_mem)
+
+yeah so the larger growthfactor is, the amount of calls needed for crash goes logarithmicly down
