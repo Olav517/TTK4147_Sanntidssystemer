@@ -27,3 +27,7 @@ task b)
 Snittid for _rdtsc: 8 ns
 Snittid for clock_gettime() 21 ns
 Snittid for times(): 437 ns (!)
+
+ofr rdtsc() viser histogrammet flest samples ved 70-82 ns.
+clock_gettime viser histogrammet flest samples ved 18-22 ns.
+times viser histogrammet flest samples ved nesten 0 ns.

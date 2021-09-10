@@ -47,13 +47,14 @@ void measure_average_read(){
 }
 
 void measure_resolution(){
-  double CPU_freq = 2.670000000;
+  double CPU_freq = 2.670000000;//*1000*1000*1000;
 
-  int ns_max = 50;
+  int ns_max = 100;
   int histogram[ns_max];
   memset(histogram, 0, sizeof(int)*ns_max);
 //__rdtsc()
-printf("\nMeasuring resolution of rdtsc()..\n");
+//printf("\nMeasuring resolution of rdtsc()..\n");
+/*
   int t1, t2;
   for(int i = 0; i < 10*1000*1000; i++){
      t1 = __rdtsc();
@@ -65,15 +66,19 @@ printf("\nMeasuring resolution of rdtsc()..\n");
   }
   for(int i = 0; i < ns_max; i++){
     printf("%d\n", histogram[i]);
-  }
+  }*/
   //clock_gettime()
-  printf("\nMeasuring resolution of clock_gettime()..\n");
-    int t3, t4;
+
+//  printf("\nMeasuring resolution of clock_gettime()..\n");
+/*
+    struct timespec t3;
+    struct timespec t4;
     for(int i = 0; i < 10*1000*1000; i++){
-       t3 = __rdtsc();
+       clock_gettime(CLOCK_MONOTONIC, &t3);
        //sched_yield() //task c?
-       t4 = __rdtsc();
-      int ns = (t4 - t3) / CPU_freq;
+       clock_gettime(CLOCK_MONOTONIC, &t4);
+      struct timespec ts_ns = (timespec_sub(t4,t3));
+      int ns = ts_ns.tv_nsec;
       if(ns >= 0 && ns < ns_max){
         histogram[ns]++;
       }
@@ -82,14 +87,16 @@ printf("\nMeasuring resolution of rdtsc()..\n");
       printf("%d\n", histogram[i]);
     }
     //times()
-    printf("\nMeasuring resolution of times..\n");
-      struct tms st_cpu;
-      struct tms en_cpu;
-      __intmax_t t5, t6;
+*/
+
+    //printf("\nMeasuring resolution of times..\n");
+      struct tms t5;
+      struct tms t6;
       for(int i = 0; i < 10*1000*1000; i++){
-         t5 = times(&st_cpu);
-         t6 = times(&en_cpu);
-        __intmax_t ns = (t6 - t5) / (__intmax_t)CPU_freq; //å caste cpu_freq blir sikkert feil
+        times(&t5);
+        times(&t6);
+
+        int ns = ((t6.tms_utime + t6.tms_stime) - (t5.tms_utime+t5.tms_stime)); //å caste cpu_freq blir sikkert feil
         if(ns >= 0 && ns < ns_max){
           histogram[ns]++;
         }
@@ -97,11 +104,12 @@ printf("\nMeasuring resolution of rdtsc()..\n");
       for(int i = 0; i < ns_max; i++){
         printf("%d\n", histogram[i]);
       }
+
 }
 
 int main(int argc, char *argv[])
 {
-  measure_average_read();
+  //measure_average_read();
   measure_resolution();
   return 0;
 }
